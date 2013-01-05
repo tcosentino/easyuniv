@@ -1,0 +1,17 @@
+<div class='col-third fill-col'>
+  <div>Logo</div>
+  <% if(window.easyUserData.fbResponse.status == 'unknown') { %>
+    <a href="#/login">Login</a>
+  <% } else { %>
+    <b>Welcome</b> 
+  <% } %>
+</div>
+
+<div class='col-two-third fill-col'>
+  <form class="form-search">
+    <div class="input-append">
+      <input type="text" class="span2 search-query">
+      <button type="submit" class="btn">Google</button>
+    </div>
+  </form>
+</div>

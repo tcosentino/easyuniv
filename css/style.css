@@ -1,0 +1,109 @@
+/* CSS Document */
+* {
+	z-index: 0;
+}
+
+#header, #footer {
+	height: 70px;
+	width: 100%;
+	background-color:#999;
+	float: left;
+}
+
+#left, #right {
+	width: 25px;
+	height: 350px;
+	background-color: #CCC;
+	float: left;
+}
+
+#window {
+	height: 350px;
+	width: 890px;
+	background-color: #FFC;
+	float: left;
+}
+
+.tile {
+	width: 142px;
+	height: 35px;
+	margin: 3px;
+}
+
+#mini-grid-container {
+	float: left;
+}
+
+.mini-grid {
+	margin: 0;
+	float: left;
+}
+
+.mini-grid li { 
+	float: left; 
+	width: 92px; 
+	height: 35px;
+	margin: 0;
+	text-align: center; 
+}
+
+.ui-state-highlight {
+	width: 92px; 
+	height: 35px;
+}
+
+div.unused {
+	height: 170px;
+	overflow: scroll;
+}
+
+ul.unused {
+	width: 138px;
+	margin: 0 auto;
+}
+
+li.unused-tile {
+	width: 112px; 
+}
+
+.fill-row {
+	width: 100%;
+	float: left;
+}
+
+.fill-col {
+	height: 100%;
+	float: left;
+}
+
+.col-fourth {
+	width: 222px;
+	background-color: #6FF;
+	float: left;
+}
+
+.col-third {
+	width: 296px;
+	background-color: #F9F;
+	float: left;
+}
+
+.col-two-third {
+	width: 594px;
+	background-color: #F9F;
+	float: left;
+}
+
+#header .col-third {
+	width: 313px;
+	background-color: #F9F;
+	float: left;
+}
+
+#header .col-two-third {
+	width: 626px;
+	background-color: #F9F;
+	float: left;
+}
+
+.clear { clear: both; }
