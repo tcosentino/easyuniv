@@ -1,55 +1,3 @@
-<!--
-<div class='col-fourth'>
-  <ul>
-    <li>school static</li>
-    <% _.each(schoolTiles, function(tile) { %>
-      <li><%= tile.get('text') %></li>
-    <% }); %>
-  </ul>
-</div>
-<div class='col-fourth'>
-  <ul>
-    <li>Common static</li>
-    <% _.each(genTiles, function(tile) { %>
-      <li><%= tile.get('text') %></li>
-    <% }); %>
-  </ul>
-</div>
-<div class='col-fourth'>
-  <ul>
-    <li>unused school tiles (users)</li>
-    <% _.each(unusedSchool, function(tile) { %>
-      <li>
-        <label class="checkbox">
-          <input class="school" type="checkbox" data-id="<%= tile.get('id') %>" />
-          <%= tile.get('text') %> 
-          <span class="badge badge-success">
-            <%= tile.get('userCount') %>
-          </span>
-        </label>
-      </li>
-    <% }); %>
-  </ul>
-</div>
-<div class='col-fourth'>
-  <ul>
-    <li>unused general tiles (users)</li>
-    <% _.each(unusedGeneral, function(tile) { %>
-      <li>
-        <label class="checkbox">
-          <input class="general" type="checkbox" data-id="<%= tile.get('id') %>" />
-          <%= tile.get('text') %> 
-          <span class="badge badge-success">
-            <%= tile.get('userCount') %>
-          </span>
-        </label>
-      </li>
-    <% }); %>
-  </ul>
-</div>
--->
-
-
 <div class='fill-col col-two-third'>
 	<div id='mini-grid-container fill-row'>
     <ul class='mini-grid'>
@@ -61,10 +9,7 @@
       <% }); %>
     </ul>
     <ul class='mini-grid sortable custom-tiles'>
-      <% _.each(_.first(unusedSchool, 5), function(tile) { %>
-        <li class="ui-state-default btn" data-id='<%= tile.get('id') %>'><%= tile.get('text') %></li>
-      <% }); %>
-      <% _.each(_.first(unusedGeneral, 5), function(tile) { %>
+      <% _.each(botTen, function(tile) { %>
         <li class="ui-state-default btn" data-id='<%= tile.get('id') %>'><%= tile.get('text') %></li>
       <% }); %>
     </ul>
@@ -75,7 +20,7 @@
   	<div class='col-third unused'>
       unused school tiles (users)
       <ul class='unused draggable school'>
-        <% _.each(_.rest(unusedSchool, 5), function(tile) { %>
+        <% _.each(restSchool, function(tile) { %>
           <li class="unused-tile btn" data-id='<%= tile.get('id') %>' data-userCount='<%= tile.get('userCount') %>'>
             <label>
               <%= tile.get('text') %> 
@@ -91,7 +36,7 @@
   	<div class='col-third unused'>
       unused general tiles (users)
       <ul class='unused draggable general'>
-        <% _.each(_.rest(unusedGeneral, 5), function(tile) { %>
+        <% _.each(restGeneral, function(tile) { %>
           <li class="unused-tile btn" data-id='<%= tile.get('id') %>' data-userCount='<%= tile.get('userCount') %>'>
             <label>
               <%= tile.get('text') %> 

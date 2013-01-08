@@ -1,0 +1,6 @@
+<ul id='notes-list'>
+	<% _.each(notes, function(note) { %>
+		<li><div><textarea data-id='<%= note.get('id') %>' class='sticky' maxlength="300" ><%= note.get('text') %></textarea></div></li>
+	<% }); %>
+</ul>
+<a href='#' id='new-note'>Add note</a>

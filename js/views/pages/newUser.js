@@ -23,7 +23,7 @@ define([
 	  this.listeners();
     },
 	listeners: function(){
-	  $('#right_arrow').on('click', this.rightArrow);
+	  $('#right_arrow').unbind().on('click', this.rightArrow);
 	},
 	rightArrow: function(){
 		window.location = '#/homeSetup';

@@ -17,6 +17,7 @@ require.config({
     underscore: '../lib/Underscore/underscore',
     backbone: '../lib/Backbone/backbone',
 		jqueryui: '../lib/jQuery-UI/js/jquery-ui.min',
+    expand: '../lib/expand',
     templates: '../templates',
 		models: 'models',
 		views: 'views',

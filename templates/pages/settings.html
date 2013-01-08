@@ -1,0 +1,12 @@
+<form>
+	<fieldset>
+		<legend>Which apps do you want to use?</legend>
+
+		<% _.each(apps, function(app) { console.log((app.get('locked') == 1) ? 'true' : 'false') %>
+			<label class="checkbox">
+				<input type="checkbox" data-appID='<%= app.get('id') %>' <%= (app.get('locked') == 1) ? 'disabled' : '' %> <%= (app.get('checked') == 1) ? 'checked' : '' %> > <%= app.get('name') %>
+			</label>
+		<% }); %>
+
+	</fieldset>
+</form>

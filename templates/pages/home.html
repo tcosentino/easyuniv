@@ -1,20 +1,5 @@
-<a class='btn tile' href='#'>tile 1</a>
-<a class='btn tile' href='#'>tile 2</a>
-<a class='btn tile' href='#'>tile 3</a>
-<a class='btn tile' href='#'>tile 4</a>
-<a class='btn tile' href='#'>tile 5</a><br />
-<a class='btn tile' href='#'>tile 6</a>
-<a class='btn tile' href='#'>tile 7</a>
-<a class='btn tile' href='#'>tile 8</a>
-<a class='btn tile' href='#'>tile 9</a>
-<a class='btn tile' href='#'>tile 10</a><br />
-<a class='btn tile' href='#'>tile 11</a>
-<a class='btn tile' href='#'>tile 12</a>
-<a class='btn tile' href='#'>tile 13</a>
-<a class='btn tile' href='#'>tile 14</a>
-<a class='btn tile' href='#'>tile 15</a><br />
-<a class='btn tile' href='#'>tile 16</a>
-<a class='btn tile' href='#'>tile 17</a>
-<a class='btn tile' href='#'>tile 18</a>
-<a class='btn tile' href='#'>tile 19</a>
-<a class='btn tile' href='#'>tile 20</a><br />
+<ul class='tile-list'>
+	<% _.each(tiles, function(tile) { %>
+		<li class='ui-state-default btn tile' data-url='<%= tile.get('url') %>'><%= tile.get('text') %></li>
+	<% }); %>
+</ul>

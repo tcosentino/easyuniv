@@ -12,9 +12,15 @@ define([
   'views/pages/homeSetup',
   'views/header',
   'views/left',
-  'views/right'
-], function($, _, Backbone, HomePageView, LoginPageView, NewUserView, 
-			HomeSetupView, HeaderView, LeftView, RightView){
+  'views/right',
+  'views/pages/settings',
+  'views/pages/news',
+  'views/pages/notes',
+  'models/user',
+  'collections/apps'
+], function($, _, Backbone, HomePageView, LoginPageView, NewUserView,
+			HomeSetupView, HeaderView, LeftView, RightView, SettingsView, NewsView,
+      NotesView, User, Apps){
   var AppRouter = Backbone.Router.extend({
     routes: {
       // Home is the default page when nothing is entered
@@ -26,7 +32,15 @@ define([
       // login with facebook. At some point the option to create
       // an account will be added to this page as well
       'login' : 'showLogin',
-	  
+
+      // Settings is where the user will go to edit which apps they want
+      // to use as well as any other settings we may have
+      'settings': 'showSettings',
+
+      // The routes below are for various apps that we may have
+      'notes/:from': 'showNotes',
+      'news/:from': 'showNews',
+
 			// These are the views that a user will see when they create
 			// an account with easyUniv. It is sort of a 'getting started'
 			'welcome'   : 'showNewUser',
@@ -34,62 +48,86 @@ define([
 
       // Default - *actions makes a variable out of the route
       '*actions': 'defaultAction'
-    }
-  });
-  
-  var commonViews = function(){
-	// Create instances of each common view
-	var headerView = new HeaderView();
-	var leftView = new LeftView();
-	var rightView = new RightView();
-	
-	// Render each of the common views
-	headerView.render();
-	leftView.render();
-	rightView.render();
-  }
-
-  var initialize = function(){
-    var router = new AppRouter;
-
-    router.on('route:showHome', function(){
-      commonViews();
-
-      // Call render on the module we loaded in via the dependency array
-      // 'views/pages/home'
+    },
+    showHome: function() {
       var homePageView = new HomePageView();
       homePageView.render();
-    });
-
-    router.on('route:showLogin', function(){
-      commonViews();
-	  
-      // Show the login page
+    },
+    showSettings: function() {
+      var settingsView = new SettingsView();
+      settingsView.render();
+    },
+    showNews: function(from) {
+      var newsView = new NewsView();
+      newsView.from = from;
+      newsView.render();
+    },
+    showNotes: function(from) {
+      var notesView = new NotesView();
+      notesView.from = from;
+      notesView.render();
+    },
+    showLogin: function() {
       var loginPageView = new LoginPageView();
       loginPageView.render();
-    });
-	
-		router.on('route:showNewUser', function(){
-			commonViews();
-			
-			// Show the newUser page
-			var newUserView = new NewUserView();
-			newUserView.render();
-		});
-		
-		router.on('route:showHomeSetup', function(){
-			commonViews();
-			
-			var homeSetupView = new HomeSetupView();
-			homeSetupView.render();
-		});
-
-    // for now, just give an error in the console
-    //  TODO: figure out what to do when something else is answered 
-    router.on('route:defaultAction', function(actions){
-      // We have no matching route, lets just log what the URL was
+    },
+    showNewUser: function() {
+      var newUserView = new NewUserView();
+      newUserView.render();
+    },
+    showHomeSetup: function() {
+      var homeSetupView = new HomeSetupView();
+      homeSetupView.render();
+    },
+    defaultAction: function() {
       console.log('No route:', actions);
-    });
+    },
+    initialize: function() {
+      if(typeof window.easyUserData.fbResponse.authResponse === 'undefined') {
+        this.loggedIn = false;
+      } else {
+        this.loggedIn = true;
+        this.currentUser = new User();
+        this.currentUser.fetchByFBID(window.easyUserData.fbResponse.authResponse.userID, function(exists) {
+          if(!exists) {
+            console.log('user does not exist');
+          } else {
+            console.log('user aquired');
+          }
+          drawConstants();
+        });
+      }
+      var drawConstants = _.after(1, function(){
+        // Create instances of each common view
+        var headerView = new HeaderView();
+        var leftView = new LeftView();
+        var rightView = new RightView();
+        
+        // Render each of the common views
+        headerView.render();
+        leftView.render();
+        rightView.render();
+      });
+    },
+    next: function() {
+      if(!this.loggedIn) {
+
+      } else {
+        this.navigate('login', {trigger: true});
+      }
+    },
+    back: function() {
+      if(!this.loggedIn) {
+
+      } else {
+        this.navigate('login', {trigger: true});
+      }
+    }
+  });
+
+  var initialize = function(){
+    var router = new AppRouter();
+
     Backbone.history.start();
   };
   return {

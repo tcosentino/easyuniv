@@ -1,4 +1,6 @@
 /* CSS Document */
+@import url(http://fonts.googleapis.com/css?family=Gloria+Hallelujah);
+
 * {
 	z-index: 0;
 }
@@ -22,12 +24,50 @@
 	width: 890px;
 	background-color: #FFC;
 	float: left;
+	overflow: scroll;
 }
+
+ul#notes-list {
+	margin: 0;
+	list-style-type: none;
+}
+
+ul#notes-list li {
+	float: left;
+}
+
+textarea.sticky  { 
+	display: block;
+	padding:15px 15px 30px;
+	margin: 5px;
+	width:175px;
+	height:100px;   
+	font:16px 'Gloria Hallelujah', cursive; 
+	border:0;
+	border-radius:3px;
+	background: -webkit-linear-gradient(#F9EFAF, #F7E98D);
+	background: -moz-linear-gradient(#F9EFAF, #F7E98D);
+	background: -o-linear-gradient(#F9EFAF, #F7E98D);
+	background: -ms-linear-gradient(#F9EFAF, #F7E98D);
+	background: linear-gradient(#F9EFAF, #F7E98D);
+	box-shadow:0 4px 6px rgba(0,0,0,0.1);
+	overflow:hidden;
+	transition:box-shadow 0.5s ease;
+	font-smoothing:subpixel-antialiased;
+	float: left;
+}
+
+textarea.sticky:hover { box-shadow:0 5px 8px rgba(0,0,0,0.15); }
+textarea.sticky:focus { box-shadow:0 5px 12px rgba(0,0,0,0.2); outline:none; }
 
 .tile {
 	width: 142px;
 	height: 35px;
 	margin: 3px;
+}
+
+ul.tile-list {
+	margin: 0;
 }
 
 #mini-grid-container {

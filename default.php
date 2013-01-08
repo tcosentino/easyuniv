@@ -2,7 +2,7 @@
   if(isset($_GET['from']))
     $site = $_GET['from'];
   else
-    $site = "empty";
+    $site = "easyzag";
   switch ($site) {
 	case "easyzag":
 	  //load easyzag settings

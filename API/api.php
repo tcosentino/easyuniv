@@ -5,6 +5,14 @@
   $api = new \Slim\Slim();
 
   //--easySites-----------------------------//
+  //----apps--------------------------------//
+  $api->get('/apps', function(){ getTable('easysites', 'app'); });
+  //----notes-------------------------------//
+  $api->get('/notes', function(){ getTable('easysites', 'note'); });
+  $api->get('/notes/:id', function($id){ getRowByID('easysites', 'note', $id); });
+  $api->get('/notes/user/:id', function($id){ getRowsByOther('easysites', 'note', 'userID', $id); });
+  $api->post('/notes', 'addNote');
+  $api->put('/notes/:id', 'updateNote');
   //----users-------------------------------//
   $api->get('/users', function(){ getTable('easysites', 'user'); });
   $api->get('/users/:id', function($id){ getRowByID('easysites', 'user', $id); });
@@ -60,6 +68,23 @@
       echo '{"error":{"text":'. $e->getMessage() .'}}';
     }
   }
+
+  function addNote() {
+    $request = \Slim\Slim::getInstance()->request();
+    $note = json_decode($request->getBody());
+    $sql = "INSERT INTO note (userID, text) VALUES (:userID, :text)";
+    try {
+      $db = getConnection("easysites");
+      $stmt = $db->prepare($sql);
+      $stmt->bindParam("userID", $note->userID);
+      $stmt->bindParam("text", $note->text);
+      $stmt->execute();
+      $db = null;
+      echo json_encode($note);
+    } catch(PDOException $e) {
+      echo '{"error":{"text":'. $e->getMessage() .'}}';
+    }
+  }
 	
 	function updateUser($id){
     $request = \Slim\Slim::getInstance()->request();
@@ -84,6 +109,25 @@
       echo '{"error":{"text":'. $e->getMessage() .'}}';
     }
 	}
+  
+  function updateNote($id){
+    $request = \Slim\Slim::getInstance()->request();
+    $body = $request->getBody();
+    $note = json_decode($body);
+    $sql = "UPDATE note SET userID=:userID, text=:text WHERE id=:id";
+    try {
+      $db = getConnection("easysites");
+      $stmt = $db->prepare($sql);
+      $stmt->bindParam("userID", $note->userID);
+      $stmt->bindParam("text", $note->text);
+      $stmt->bindParam("id", $id);
+      $stmt->execute();
+      $db = null;
+      echo json_encode($note);
+    } catch(PDOException $e) {
+      echo '{"error":{"text":'. $e->getMessage() .'}}';
+    }
+  }
 
   /* addType creates a type entry in the database
    * @requestBody: {"name": "test"}
@@ -254,6 +298,21 @@
       echo '{"error":{"text":'. $e->getMessage() .'}}';
     }
 	}
+  
+  function getRowsByOther($dbname, $table, $key, $value) {
+    $sql = "SELECT * FROM ".$table." WHERE ".$key."=:value";
+    try {
+      $db = getConnection($dbname);
+      $stmt = $db->prepare($sql);
+      $stmt->bindParam("value", $value);
+      $stmt->execute();
+      $result = $stmt->fetchAll(PDO::FETCH_OBJ);
+      $db = null;
+      echo json_encode($result);
+    } catch(PDOException $e) {
+      echo '{"error":{"text":'. $e->getMessage() .'}}';
+    }
+  }
 
   /* ----------------------------------database connections--------------------------------- */
 
