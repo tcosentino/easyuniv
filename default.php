@@ -17,6 +17,7 @@
     <title><?php echo $site; ?></title>
     <link href="lib/Bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
     <link type="text/css" rel="stylesheet" href="css/style.css">
+    <link type="text/css" rel="stylesheet" href="css/font-awesome.min.css">
   </head>
   <body>
     <!-- Begin facebook code -->
@@ -65,13 +66,15 @@
     </script>
     <!--  End facebook code -->
 
+    <div id="header"></div>
     <div class="container">
-      <div id="header"></div>
-      <div id="left"></div>
-      <div id="window"></div>
-      <div id="right"></div>
-      <div id="footer"></div>
+      <div id='content'>
+        <div id="left"></div>
+        <div id="window"></div>
+        <div id="right"></div>
+      </div>
     </div>
+    <div id="footer"></div>
 
   </body>
 </html>

@@ -106,7 +106,7 @@ define([
 				window.location = '#/login';
 			} else {
 				// Logged in
-				window.location = '#/notes/right'
+				window.location = '#/news/right'
 			}
 
 			return false;
@@ -117,7 +117,7 @@ define([
 				window.location = '#/login';
 			} else {
 				// Logged in
-				window.location = '#/news/left';
+				window.location = '#/notes/left';
 			}
 
 			return false;

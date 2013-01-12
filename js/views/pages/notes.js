@@ -7,12 +7,14 @@ define([
 	'underscore',
 	'backbone',
 	'expand',
+	'isotope',
+	'resize',
 	'text!templates/pages/notes.html',
 	'models/school',
 	'models/user',
 	'collections/notes',
 	'models/note'
-], function($, _, Backbone, Expand, NotesPageTemplate, School, User, Notes, Note){
+], function($, _, Backbone, Expand, Isotope, Resize, NotesPageTemplate, School, User, Notes, Note){
 	var NotesPageView = Backbone.View.extend({
 		el: $('#window'),
 		render: function(){
@@ -30,9 +32,9 @@ define([
 						if(that.currentUser.get('settingsJSON').apps[2] == 0) {
 							// need to know if they came from the left or the right
 							if(that.from == 'left')
-								window.location = '#/home';
+								window.location = '#/sports/left';
 							else
-								window.location = '#/news/right';
+								window.location = '#/home';
 						} else {
 							that.notes = new Notes();
 							that.notes.getUserNotes(that.currentUser.get('id'), function(worked){
@@ -44,6 +46,7 @@ define([
 									var compiledTemplate = _.template(NotesPageTemplate, data);
 									// Append our compiled template to this Views "el"
 									that.$el.html( compiledTemplate );
+									$('#notes-list').isotope();
 									that.listeners();
 								}
 							});
@@ -59,7 +62,19 @@ define([
 
 			$("textarea.sticky").autogrow();
 
-			$('#new-note').live('click', function(e){
+			$("textarea.sticky").resize(function(){
+				$('#notes-list').isotope('reLayout');
+			});
+
+			$('.remove-sticky').off().live('click', function(e){
+				var delNote = new Note({id: $(this).data('id')});
+				delNote.destroy();
+				//$(this).parent().parent().hide('scale', {percent: 0}, 500);
+				$('#notes-list').isotope('remove', $(this).parent().parent());
+				return false;
+			});
+
+			$('#new-note').off().click(function(e){
 				var newNote = new Note({userID: that.currentUser.get('id')});
 				newNote.save({
 					success: function() {
@@ -67,7 +82,8 @@ define([
 						console.log(that.notes);
 					}
 				});
-				$('#notes-list').append('<li><textarea data-id="'+newNote.get('id')+'" class="sticky" maxlength="300" >Enter your note here! It will save when you change the page!</textarea></li>');
+				var $newItem = $('<div class="sticky"><div class="text-right"><a href="#"" class="remove-sticky" data-id="'+newNote.get('id')+'"><i class="icon-remove"></i></a></div><textarea data-id="'+newNote.get('id')+'" class="sticky" maxlength="300" >Enter your note here! It will save when you change the page!</textarea></div>');
+				$('#notes-list').isotope('insert', $newItem);
 				that.notes.push(new Note());
 				console.log(that.notes);
 				return false;
@@ -87,7 +103,7 @@ define([
 					note.set({ text: $('textarea[data-id='+note.get('id')+']').val() })
 					note.save();
 				});
-				window.location = '#/news/right';
+				window.location = '#/home';
 			}
 
 			return false;
@@ -98,7 +114,7 @@ define([
 				window.location = '#/login';
 			} else {
 				// Logged in
-				window.location = '#/home';
+				window.location = '#/sports/left';
 			}
 
 			return false;

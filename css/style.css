@@ -5,65 +5,179 @@
 	z-index: 0;
 }
 
+body { 
+	background:url(http://subtlepatterns.com/patterns/little_pluses.png) #cacaca; 
+}
+
 #header, #footer {
-	height: 70px;
+	height: 60px;
 	width: 100%;
 	background-color:#999;
 	float: left;
 }
 
+#footer {
+	position: fixed;
+	bottom: 0;
+	padding-left: 15px;
+	padding-right: 15px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+#content {
+	height:400px; 
+	position:absolute;
+	top: 50%;
+	margin-top: -200px;
+	overflow: hidden;
+}
+
 #left, #right {
 	width: 25px;
-	height: 350px;
-	background-color: #CCC;
+	height: 100%;
+	margin: 10px;
 	float: left;
+}
+
+.arrow {
+	top: 45%;
+	position: absolute;
 }
 
 #window {
-	height: 350px;
+	height: 100%;
 	width: 890px;
-	background-color: #FFC;
 	float: left;
-	overflow: scroll;
+	overflow: hidden;
 }
 
-ul#notes-list {
+div#notes-list {
 	margin: 0;
 	list-style-type: none;
 }
 
-ul#notes-list li {
+div#notes-list li {
 	float: left;
 }
 
-textarea.sticky  { 
-	display: block;
-	padding:15px 15px 30px;
-	margin: 5px;
-	width:175px;
-	height:100px;   
-	font:16px 'Gloria Hallelujah', cursive; 
-	border:0;
+div.sticky {
 	border-radius:3px;
 	background: -webkit-linear-gradient(#F9EFAF, #F7E98D);
 	background: -moz-linear-gradient(#F9EFAF, #F7E98D);
 	background: -o-linear-gradient(#F9EFAF, #F7E98D);
 	background: -ms-linear-gradient(#F9EFAF, #F7E98D);
 	background: linear-gradient(#F9EFAF, #F7E98D);
-	box-shadow:0 4px 6px rgba(0,0,0,0.1);
-	overflow:hidden;
-	transition:box-shadow 0.5s ease;
-	font-smoothing:subpixel-antialiased;
 	float: left;
+	padding:15px 15px 5px;
+	margin: 5px;
+	transition:box-shadow 0.5s ease;
+	box-shadow:0 4px 6px rgba(0,0,0,0.1);
 }
 
-textarea.sticky:hover { box-shadow:0 5px 8px rgba(0,0,0,0.15); }
-textarea.sticky:focus { box-shadow:0 5px 12px rgba(0,0,0,0.2); outline:none; }
+textarea.sticky  { 
+	display: block;
+	width:170px;
+	height:100px;   
+	font:16px 'Gloria Hallelujah', cursive; 
+	border:0;
+	border-radius:3px;
+	background-color: transparent;
+	overflow:hidden;
+	font-smoothing:subpixel-antialiased;
+	float: left;
+  -webkit-box-shadow: none;
+     -moz-box-shadow: none;
+          box-shadow: none;
+  -webkit-transition: none;
+     -moz-transition: none;
+       -o-transition: none;
+          transition: none;
+}
+
+textarea.sticky:hover{
+  border: 0;
+  outline: 0;
+  /* IE6-9 */
+
+  -webkit-box-shadow: none;
+     -moz-box-shadow: none;
+          box-shadow: none;
+}
+
+.isotope.no-transition,
+.isotope.no-transition .isotope-item,
+.isotope .isotope-item.no-transition {
+  -webkit-transition-duration: 0s;
+     -moz-transition-duration: 0s;
+      -ms-transition-duration: 0s;
+       -o-transition-duration: 0s;
+          transition-duration: 0s;
+}
+
+div.sticky:hover { box-shadow:0 5px 8px rgba(0,0,0,0.15); }
+div.sticky:focus { box-shadow:0 5px 12px rgba(0,0,0,0.2); outline:none; }
+
+.page-head {
+	margin: 3px;
+	padding: 2px;
+	margin-right: 4px;
+	height: 5%;
+	background-color: #fff;
+	border-radius: 4px;
+	text-align: center;
+	font-size: 18px;
+	font-weight: bold;
+}
+
+#news-body {
+	height: 95%;
+}
+
+#article-list {
+	margin: 0;
+	list-style-type: none;
+	width: 100%;
+	overflow: hidden;
+}
+
+.article-tile {
+	background-color: #fff;
+	margin: 3px;
+	width: 280px;
+	float: left;
+	padding: 5px;
+	border-radius: 4px;
+}
+
+.pub-date {
+	color: #999;
+}
 
 .tile {
 	width: 142px;
-	height: 35px;
+	height: 50px;
 	margin: 3px;
+	border-radius: 6px;
+}
+
+h2 { 
+	width:100%; 
+	text-align:left; 
+	border-bottom: 3px solid #000; 
+	line-height:0.05em; 
+	margin:20px 0 20px; 
+}
+
+h2 span { 
+	font-size: 24pt; 
+	padding:0 10px; 
+	margin-left: 80px; 
+	font-family: 'Allura', cursive;
+}
+
+.tile:hover { 
+	box-shadow:0 5px 8px rgba(0,0,0,0.15); 
 }
 
 ul.tile-list {
@@ -104,6 +218,33 @@ ul.unused {
 
 li.unused-tile {
 	width: 112px; 
+}
+
+#footer-cpy {
+	width: 40%;
+}
+
+#footer-text {
+	margin-left: 10px;
+	width: 70%;
+	font-size: 8pt;
+}
+
+#social-icons {
+	width: 55%;
+}
+
+.float-left {
+	float: left;
+}
+
+.scroll {
+	overflow: scroll;
+	float: left;
+}
+
+.text-right {
+	text-align: right;
 }
 
 .fill-row {

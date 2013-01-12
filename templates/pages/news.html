@@ -1,5 +1,14 @@
-<ul class='article-list'>
-	<% _.each(entries, function(entry) { %>
-		<li class='' data-url='<%= entry.get('link') %>'><b><%= entry.get('title') %></b> - <%= entry.get('contentSnippet') %></li>
-	<% }); %>
-</ul>
+<div class='page-head'>CNN top stories</div>
+<div class='scroll fill-row' id='news-body'>
+	<div id='article-list'>
+		<% _.each(entries, function(entry) { %>
+			<div class='article-tile'>
+				<a href='<%= entry.get('link') %>'><b><%= entry.get('title') %></b></a><br />
+				<span class='pub-date'>
+					<%= $.timeago(new Date(entry.get('publishedDate'))) %>
+				</span>
+				<br /><%= entry.get('contentSnippet') %>
+			</div>
+		<% }); %>
+	</div>
+</div>

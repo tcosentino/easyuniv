@@ -265,17 +265,18 @@ define([
 					$('#custom-tile').data('schoolID', 2);
 			});
 			
-			$('#right_arrow').unbind().live('click', {view: this}, this.rightArrow);
-			$('#left_arrow').unbind().live('click', this.leftArrow);
+			$('#right_arrow').off().live('click', {view: this}, this.rightArrow);
+			$('#left_arrow').off().live('click', this.leftArrow);
 		},
 		rightArrow: function(e){
 			var user = e.data.view.currentUser;
 			console.log(user.toJSON());
-			user.set({
-				settingsJSON: {
-					homeTiles: $.map($('.custom-tiles').children(), function(o){ return Number($(o).data('id')); })
-				}
-			});
+
+			var temp = user.get('settingsJSON');
+			var hT = $.map($('.custom-tiles').children(), function(o){ return Number($(o).data('id')); });
+			temp.homeTiles = hT;
+			user.set({settings: JSON.stringify(temp)});
+
 			console.log(user.toJSON());
 			user.save();
 			return false;

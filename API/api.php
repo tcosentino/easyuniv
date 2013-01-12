@@ -13,6 +13,7 @@
   $api->get('/notes/user/:id', function($id){ getRowsByOther('easysites', 'note', 'userID', $id); });
   $api->post('/notes', 'addNote');
   $api->put('/notes/:id', 'updateNote');
+  $api->delete('/notes/:id', function($id){ deleteRowByID('easysites', 'note', $id); });
   //----users-------------------------------//
   $api->get('/users', function(){ getTable('easysites', 'user'); });
   $api->get('/users/:id', function($id){ getRowByID('easysites', 'user', $id); });
@@ -283,6 +284,19 @@
       echo '{"error":{"text":'. $e->getMessage() .'}}';
     }
 	}
+  
+  function deleteRowByID($dbname, $table, $id) {
+    $sql = "DELETE FROM ".$table." WHERE id=:id";
+    try {
+      $db = getConnection($dbname);
+      $stmt = $db->prepare($sql);
+      $stmt->bindParam("id", $id);
+      $stmt->execute();
+      $db = null;
+    } catch(PDOException $e) {
+      echo '{"error":{"text":'. $e->getMessage() .'}}';
+    }
+  }
 	
 	function getRowByOther($dbname, $table, $key, $value) {
 		$sql = "SELECT * FROM ".$table." WHERE ".$key."=:value";

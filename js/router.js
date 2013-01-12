@@ -10,7 +10,9 @@ define([
   'views/pages/login',
   'views/pages/newUser',
   'views/pages/homeSetup',
+  'views/pages/sports',
   'views/header',
+  'views/footer',
   'views/left',
   'views/right',
   'views/pages/settings',
@@ -19,7 +21,7 @@ define([
   'models/user',
   'collections/apps'
 ], function($, _, Backbone, HomePageView, LoginPageView, NewUserView,
-			HomeSetupView, HeaderView, LeftView, RightView, SettingsView, NewsView,
+			HomeSetupView, SportsView, HeaderView, FooterView, LeftView, RightView, SettingsView, NewsView,
       NotesView, User, Apps){
   var AppRouter = Backbone.Router.extend({
     routes: {
@@ -40,6 +42,7 @@ define([
       // The routes below are for various apps that we may have
       'notes/:from': 'showNotes',
       'news/:from': 'showNews',
+      'sports/:from': 'showSports',
 
 			// These are the views that a user will see when they create
 			// an account with easyUniv. It is sort of a 'getting started'
@@ -62,6 +65,11 @@ define([
       newsView.from = from;
       newsView.render();
     },
+    showSports: function(from) {
+      var sportsView = new SportsView();
+      sportsView.from = from;
+      sportsView.render();
+    },
     showNotes: function(from) {
       var notesView = new NotesView();
       notesView.from = from;
@@ -79,8 +87,8 @@ define([
       var homeSetupView = new HomeSetupView();
       homeSetupView.render();
     },
-    defaultAction: function() {
-      console.log('No route:', actions);
+    defaultAction: function(actions) {
+      console.log('No route:', actions); 
     },
     initialize: function() {
       if(typeof window.easyUserData.fbResponse.authResponse === 'undefined') {
@@ -100,11 +108,13 @@ define([
       var drawConstants = _.after(1, function(){
         // Create instances of each common view
         var headerView = new HeaderView();
+        var footerView = new FooterView();
         var leftView = new LeftView();
         var rightView = new RightView();
         
         // Render each of the common views
         headerView.render();
+        footerView.render();
         leftView.render();
         rightView.render();
       });

@@ -18,11 +18,14 @@ require.config({
     backbone: '../lib/Backbone/backbone',
 		jqueryui: '../lib/jQuery-UI/js/jquery-ui.min',
     expand: '../lib/expand',
+    timeago: '../lib/jquery.timeago',
+    resize: '../lib/resize.min',
     templates: '../templates',
 		models: 'models',
 		views: 'views',
 		collections: 'collections',
-	bootstrap: '../lib/Bootstrap/js/bootstrap.min.js'
+	bootstrap: '../lib/Bootstrap/js/bootstrap.min.js',
+  isotope: '../lib/jquery.isotope.min'
   }
 
 });
