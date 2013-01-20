@@ -1,8 +1,6 @@
-<div class='page-head'><a href='#' id='new-note'><i class="icon-plus"></i> Add Note</a></div>
-<div class='fill-row'>
-	<div id='notes-list'>
-		<% _.each(notes, function(note) { %>
-			<div class='sticky'><div class='text-right'><a href='#' class='remove-sticky' data-id='<%= note.get('id') %>'><i class="icon-remove"></i></a></div><textarea data-id='<%= note.get('id') %>' class='sticky' maxlength="300" ><%= note.get('text') %></textarea></div>
-		<% }); %>
-	</ul>
+<div id='notes-list'>
+	<% _.each(notes, function(note) { %>
+		<div class='sticky'><div class='delete-note'><a href='#' class='remove-sticky' data-id='<%= note.get('id') %>'><i class="icon-remove"></i></a></div><textarea data-id='<%= note.get('id') %>' class='sticky' maxlength="300" ><%= note.get('text') %></textarea></div>
+	<% }); %>
+	<div class='new-sticky'><a href='#' id='new-note'></a></div>
 </div>

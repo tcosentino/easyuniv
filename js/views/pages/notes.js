@@ -16,108 +16,75 @@ define([
 	'models/note'
 ], function($, _, Backbone, Expand, Isotope, Resize, NotesPageTemplate, School, User, Notes, Note){
 	var NotesPageView = Backbone.View.extend({
-		el: $('#window'),
+		el: $('#content'),
 		render: function(){
+			$('.active-nav-element-text')
+				.addClass('nav-element-text')
+				.removeClass('active-nav-element-text');
+
+			$('#notes-nav')
+				.addClass('active-nav-element-text')
+				.removeClass('nav-element-text');
+
 			var that = this;
-			if(typeof window.easyUserData.fbResponse.authResponse === 'undefined') {
-				// Not logged in
-				window.location = '#/login';
+			if(this.currentUser == null) {
+				console.log('user is not logged in');
 			} else {
-				// Logged in
-				that.currentUser = new User();
-				that.currentUser.fetchByFBID(window.easyUserData.fbResponse.authResponse.userID, function(exists) {
-					if(!exists) {
+				that.notes = new Notes();
+				console.log(that.currentUser.get('id'));
+				that.notes.getUserNotes(that.currentUser.get('id'), function(worked){
+					if(!worked){
 						console.log('something went wrong');
 					} else {
-						if(that.currentUser.get('settingsJSON').apps[2] == 0) {
-							// need to know if they came from the left or the right
-							if(that.from == 'left')
-								window.location = '#/sports/left';
-							else
-								window.location = '#/home';
-						} else {
-							that.notes = new Notes();
-							that.notes.getUserNotes(that.currentUser.get('id'), function(worked){
-								if(!worked){
-									console.log('something went wrong');
-								} else {
+						console.log(that.notes);
+						var data = { notes: that.notes.models };
+						var compiledTemplate = _.template(NotesPageTemplate, data);
+						// Append our compiled template to this Views "el"
+						that.$el.html( compiledTemplate );
+						$('#notes-list').isotope();
+
+						$("textarea.sticky").autogrow();
+						$("textarea.sticky").resize(function(){ $('#notes-list').isotope('reLayout'); });
+
+						var keyTime = 0;
+						$("textarea.sticky").keyup(function(){
+							keyTime = new Date().getTime();
+						});
+
+						var saveInterval = setInterval(function(){
+							if((new Date().getTime() - keyTime) > 2000 && (new Date().getTime() - keyTime) < 3000) {
+								_.each(that.notes.models, function(note){
+									note.set({ text: $('textarea[data-id='+note.get('id')+']').val() })
+									note.save();
+								});
+							}
+						},1000)
+
+						$('.remove-sticky').off().live('click', function(e){
+							var delNote = new Note({id: $(this).data('id')});
+							delNote.destroy();
+							//$(this).parent().parent().hide('scale', {percent: 0}, 500);
+							$('#notes-list').isotope('remove', $(this).parent().parent());
+							return false;
+						});
+
+						$('#new-note').off().click(function(e){
+							var newNote = new Note({userID: that.currentUser.get('id')});
+							newNote.save({
+								success: function() {
+									that.notes.push(newNote);
 									console.log(that.notes);
-									var data = { notes: that.notes.models };
-									var compiledTemplate = _.template(NotesPageTemplate, data);
-									// Append our compiled template to this Views "el"
-									that.$el.html( compiledTemplate );
-									$('#notes-list').isotope();
-									that.listeners();
 								}
 							});
-						}
+							var $newItem = $('<div class="sticky"><div class="text-right"><a href="#"" class="remove-sticky" data-id="'+newNote.get('id')+'"><i class="icon-remove"></i></a></div><textarea data-id="'+newNote.get('id')+'" class="sticky" maxlength="300" >Enter your note here! It will save when you change the page!</textarea></div>');
+							$('#notes-list').prepend($newItem).isotope('reloadItems').isotope({sortBy: 'original-order'});
+							that.notes.push(new Note());
+							console.log(that.notes);
+							return false;
+						});
 					}
 				});
 			}
-			this.listeners();
-		},
-		listeners: function(){
-			var that = this;
-			console.log(that);
-
-			$("textarea.sticky").autogrow();
-
-			$("textarea.sticky").resize(function(){
-				$('#notes-list').isotope('reLayout');
-			});
-
-			$('.remove-sticky').off().live('click', function(e){
-				var delNote = new Note({id: $(this).data('id')});
-				delNote.destroy();
-				//$(this).parent().parent().hide('scale', {percent: 0}, 500);
-				$('#notes-list').isotope('remove', $(this).parent().parent());
-				return false;
-			});
-
-			$('#new-note').off().click(function(e){
-				var newNote = new Note({userID: that.currentUser.get('id')});
-				newNote.save({
-					success: function() {
-						that.notes.push(newNote);
-						console.log(that.notes);
-					}
-				});
-				var $newItem = $('<div class="sticky"><div class="text-right"><a href="#"" class="remove-sticky" data-id="'+newNote.get('id')+'"><i class="icon-remove"></i></a></div><textarea data-id="'+newNote.get('id')+'" class="sticky" maxlength="300" >Enter your note here! It will save when you change the page!</textarea></div>');
-				$('#notes-list').isotope('insert', $newItem);
-				that.notes.push(new Note());
-				console.log(that.notes);
-				return false;
-			});
-			
-			$('#right_arrow').off().click({view: that}, this.rightArrow);
-			$('#left_arrow').off().click({view: that}, this.leftArrow);
-		},
-		rightArrow: function(e){
-			var that = e.data.view;
-			if(typeof window.easyUserData.fbResponse.authResponse === 'undefined') {
-				// Not logged in
-				window.location = '#/login';
-			} else {
-				// Logged in
-				_.each(that.notes.models, function(note){
-					note.set({ text: $('textarea[data-id='+note.get('id')+']').val() })
-					note.save();
-				});
-				window.location = '#/home';
-			}
-
-			return false;
-		},
-		leftArrow: function(){
-			if(typeof window.easyUserData.fbResponse.authResponse === 'undefined') {
-				// Not logged in
-				window.location = '#/login';
-			} else {
-				// Logged in
-				window.location = '#/sports/left';
-			}
-
-			return false;
 		}
 	});
 	// Our module now returns our view

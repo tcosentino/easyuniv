@@ -1,0 +1,359 @@
+<head>
+  <link type="text/css" rel="stylesheet" href="css/font-awesome.min.css">
+</head>
+<style>
+  body, html {
+    margin:0;
+    background-color: #dddddd;
+  }
+
+  #main-nav {
+    width:220px;
+    background-color:#494949;
+    height:100%;
+    color:#f8f8f8;
+    overflow: hidden;
+
+    -moz-box-shadow: 3px 0px 5px #000000;
+    -webkit-box-shadow: 3px 0px 5px #000000;
+    box-shadow: 3px 0px 5px #000000;
+  }
+
+  ul {
+    padding:0;
+  }
+
+  .nav-element {
+    width:220px;
+    float:left;
+    background-color:#ff0000;
+  }
+
+  .nav-element-text {
+    -moz-transition-property: width, background-color, box-shadow;
+    -moz-transition-duration: .5s;
+    -webkit-transition-property: width, background-color, box-shadow;
+    -webkit-transition-duration: .5s;
+    -o-transition-property: width, background-color, box-shadow;
+    -o-transition-duration: .5s;
+    width:210px;
+    background-color:#494949;
+
+    float: left;
+    position: relative;
+    z-index: 2;
+    
+    color:#f8f8f8;
+
+    padding-left: 10px;
+    margin-right: 0px;
+
+    font-size:20px;
+    line-height: 50px;
+    
+    border-top-style:solid;
+    border-top-color:#747679;
+    border-top-width:1px;
+    border-bottom-style:solid;
+    border-bottom-color:#3d3e42;
+    border-bottom-width:2px;
+  }
+
+  .active-nav-element-text {
+    width: 200px;
+    background-color:#747679;
+
+    -moz-box-shadow: 3px 0px 5px #3d3e42;
+    -webkit-box-shadow: 3px 0px 5px #3d3e42;
+    box-shadow: 3px 0px 5px #3d3e42;
+    
+    color:#f8f8f8;
+
+    padding-left: 10px;
+    margin-right: 0px;
+
+    font-size:20px;
+    line-height: 50px;
+    
+    border-top-style:solid;
+    border-top-color:#747679;
+    border-top-width:1px;
+    border-bottom-style:solid;
+    border-bottom-color:#3d3e42;
+    border-bottom-width:2px;
+  }
+
+  .nav-element:hover {
+    cursor: pointer;
+  }
+
+  .nav-element:hover .nav-element-text {
+    -moz-transition-property: width, background-color, box-shadow;
+    -moz-transition-duration: .5s;
+    -webkit-transition-property: width, background-color, box-shadow;
+    -webkit-transition-duration: .5s;
+    -o-transition-property: width, background-color, box-shadow;
+    -o-transition-duration: .5s;
+    width: 200px;
+    background-color:#747679;
+
+    -moz-box-shadow: 3px 0px 5px #3d3e42;
+    -webkit-box-shadow: 3px 0px 5px #3d3e42;
+    box-shadow: 3px 0px 5px #3d3e42;
+  }
+
+  #logo {
+    text-align: center;
+
+    padding-top: 10px;
+    padding-bottom: 10px;
+
+    border-bottom-style:solid;
+    border-bottom-color:#3d3e42;
+    border-bottom-width:2px;
+  }
+
+  #spacer {
+    height:100%;
+
+    border-top-style:solid;
+    border-top-color:#747679;
+    border-top-width:1px;
+  }
+
+  #user-frame {
+    position: fixed;
+    bottom:0px;
+    width:220px;
+    padding-bottom: 10px;
+
+    border-top-style:solid;
+    border-top-color:#747679;
+    border-top-width:1px;
+  }
+
+  #prof-pic {
+    float:left;
+    margin:10px;
+  }
+
+  #prof-pic img {
+    width:50px;
+  }
+
+  #user-info {
+    float:left;
+    width:150px;
+    margin-top:10px;
+    margin-bottom:10px;
+    line-height: 25px;
+    color:#f8f8f8;
+  }
+
+  #user-buttons {
+    margin-left:5px;
+    margin-bottom:10px;
+  }
+
+  #user-buttons div {
+    width:95px;
+    height:30px;
+    line-height: 30px;
+    float:left;
+    text-align: center;
+    border-radius: 4px;
+    margin-left: 5px;
+    margin-right:5px;
+  }
+
+  #user-buttons div:hover {
+    cursor:pointer;
+
+    -moz-box-shadow: 3px 3px 5px #3d3e42;
+    -webkit-box-shadow: 3px 3px 5px #3d3e42;
+    box-shadow: 3px 3px 5px #3d3e42;
+  }
+
+  .sunk {
+    background-color:#272822;
+  }
+
+
+
+
+
+  .article-frame {
+    position: absolute;
+    top: 30px;
+    left: 250px;
+
+    width: 220px;
+
+    border: 1px solid #b6b6b6;
+    -moz-box-shadow: 3px 3px 5px #3d3e42;
+    -webkit-box-shadow: 3px 3px 5px #3d3e42;
+    box-shadow: 3px 3px 5px #3d3e42;
+  }
+
+  .article {
+
+    width: 180px;
+    font-size: 14px;
+    background-color: #fff;
+
+    padding: 20px 20px 10px 20px;
+  }
+
+  .article h2 {
+    font-size: 1.3em;
+    text-align: center;
+    margin: 0 0 10px 0;
+  }
+
+  .article img {
+    text-align: center;
+    display: block;
+    margin: 0 auto 0 auto;
+  }
+
+  .article .time-ago {
+    margin: 10px 0 0 0;
+    display: block;
+
+    color: #6f6f6f;
+    font-size: .9em;
+  }
+
+  .article p {
+    margin: 10px 0 0 0;
+  }
+
+  .article-frame .share-buttons {
+    height: 30px;
+    background-color: #dddddd;
+  }
+
+  .article-frame .share-buttons div {
+    float: left;
+  }
+
+  .article-frame .share-buttons a {
+    display: block;
+    height: 100%;
+    width: 109px;
+  }
+
+  .article-frame .share-buttons .fb-share {
+    border-right: 1px solid #b6b3b0;
+    text-align: center;
+  }
+
+  .article-frame .share-buttons .fb-share img {
+    margin-top:6px;
+
+    -moz-transition-property: margin-top;
+    -moz-transition-duration: .1s;
+    -webkit-transition-property: margin-top;
+    -webkit-transition-duration: .1s;
+    -o-transition-property: margin-top;
+    -o-transition-duration: .1s;
+  }
+
+  .article-frame .share-buttons .fb-share:hover img {
+    margin-top: 3px;
+
+    -moz-transition-property: margin-top;
+    -moz-transition-duration: .1s;
+    -webkit-transition-property: margin-top;
+    -webkit-transition-duration: .1s;
+    -o-transition-property: margin-top;
+    -o-transition-duration: .1s;
+  }
+
+  .article-frame .share-buttons .twitter-share {
+    border-left: 1px solid #ffffff;
+    text-align: center;
+  }
+
+  .article-frame .share-buttons .twitter-share img {
+    margin-top:6px;
+
+    -moz-transition-property: margin-top;
+    -moz-transition-duration: .1s;
+    -webkit-transition-property: margin-top;
+    -webkit-transition-duration: .1s;
+    -o-transition-property: margin-top;
+    -o-transition-duration: .1s;
+  }
+
+  .article-frame .share-buttons .twitter-share:hover img {
+    margin-top: 3px;
+
+    -moz-transition-property: margin-top;
+    -moz-transition-duration: .1s;
+    -webkit-transition-property: margin-top;
+    -webkit-transition-duration: .1s;
+    -o-transition-property: margin-top;
+    -o-transition-duration: .1s;
+  }
+</style>
+
+<div id='main-nav'>
+  <div id='logo'>
+    <img src='img/easyunivLogo.png' />
+  </div>
+
+    <div class='nav-element'>
+      <div class='nav-element-text'>
+        <i class="icon-home"></i> HOME
+      </div>
+    </div>
+
+    <div class='nav-element'><div class='active-nav-element-text'><i class="icon-columns"></i> NEWS</div></div>
+    <div class='nav-element'><div class='nav-element-text'><i class="icon-paper-clip"></i> NOTES</div></div>
+    <div class='nav-element'><div class='nav-element-text'><i class="icon-circle"></i> SCORES</div></div>
+
+  <div id='spacer'>
+    <div id='user-frame'>
+      <div id='prof-pic'>
+        <img src="https://graph.facebook.com/troy.cosentino/picture"/>
+      </div>
+      <div id='user-info'>
+        <div>Welcome,<br>Troy Cosentino</div>
+      </div>
+      <div id='user-buttons'>
+        <div class='sunk'>
+          <i class="icon-cog"></i>&nbsp;&nbsp;Settings
+        </div>
+        <div class='sunk'>
+          <i class="icon-reply"></i>&nbsp;&nbsp;Log Out
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<div class='article-frame'>
+  <div class='article'>
+    <h2>Dragons Released at Zoo</h2>
+
+    <img src='http://l.yimg.com/iu/api/res/1.2/uZToCNzc_.7fxnhTCvr4TA--/YXBwaWQ9eXZpZGVvO2NoPTM0MTtjcj0xO2N3PTM0MTtkeD0xO2R5PTE7Zmk9dWxjcm9wO2g9MTMwO3E9MTAwO3c9MTMw/http://media.zenfs.com/en_us/Sports/ap/201301142132775391947-p2.jpeg'></img>
+
+    <span class='time-ago'>about 2 hours ago</span>
+
+    <p>This is Photoshop's version  of Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit. Duis sed odio sit amet nibh vulputate cursus a sit amet mauris. </p>
+
+  </div>
+
+  <div class='share-buttons'>
+    <div class='fb-share'>
+      <a href='#'><img src="img/facebook.png"></a>
+    </div>
+    <div class='twitter-share'>
+      <a href='#'><img src="img/twitter.png"></a>
+    </div>
+  </div>
+</div>

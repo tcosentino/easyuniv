@@ -11,35 +11,25 @@ define([
 	'models/user'
 ], function($, _, Backbone, SportsPageTemplate, School, User){
 	var SportsPageView = Backbone.View.extend({
-		el: $('#window'),
+		el: $('#content'),
 		render: function(){
-			var that = this;
-			if(typeof window.easyUserData.fbResponse.authResponse === 'undefined') {
-				// Not logged in
-				window.location = '#/login';
-			} else {
-				// Logged in
-				that.currentUser = new User();
-				that.currentUser.fetchByFBID(window.easyUserData.fbResponse.authResponse.userID, function(exists) {
-					if(!exists) {
-						console.log('something went wrong');
-					} else {
-						if(that.currentUser.get('settingsJSON').apps[4] == 0) {
-							// need to know if they came from the left or the right
-							if(that.from == 'left')
-								window.location = '#/news/left';
-							else
-								window.location = '#/notes/right';
-						} else {
-							var data = {};
-							var compiledTemplate = _.template(SportsPageTemplate, data);
-							// Append our compiled template to this Views "el"
-							that.$el.html( compiledTemplate );
-							that.listeners();
-						}
-					}
-				});
+			$('.active-nav-element-text')
+				.addClass('nav-element-text')
+				.removeClass('active-nav-element-text');
 
+			$('#sports-nav')
+				.addClass('active-nav-element-text')
+				.removeClass('nav-element-text');
+
+			var that = this;
+			if(this.currentUser == null) {
+				console.log('user is not logged in');
+			} else {
+				var data = {};
+				var compiledTemplate = _.template(SportsPageTemplate, data);
+				// Append our compiled template to this Views "el"
+				that.$el.html( compiledTemplate );
+				that.listeners();
 			}
 		},
 		listeners: function(){

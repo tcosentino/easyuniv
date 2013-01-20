@@ -1,0 +1,35 @@
+<div id='logo'>
+    <img src='img/easyunivLogo.png' />
+  </div>
+
+    <div class='nav-element'>
+      <a href='#/home' class='nav-element-text' id='home-nav'><i class="icon-home"></i> HOME</a>
+    </div>
+    <div class='nav-element'>
+      <a href='#/news' class='active-nav-element-text' id='news-nav'><i class="icon-columns"></i> NEWS</a>
+    </div>
+    <div class='nav-element'>
+      <a href='#/notes' class='nav-element-text' id='notes-nav'><i class="icon-paper-clip"></i> NOTES</a>
+    </div>
+    <div class='nav-element'>
+      <a href='#/sports' class='nav-element-text' id='sports-nav'><i class="icon-circle"></i> SPORTS</a>
+    </div>
+
+  <div id='spacer'>
+    <div id='user-frame'>
+      <div id='prof-pic'>
+        <img src="https://graph.facebook.com/<%= user.get('fbID') %>/picture"/>
+      </div>
+      <div id='user-info'>
+        <div>Welcome,<br><%= user.get('firstName') + ' ' + user.get('lastName') %></div>
+      </div>
+      <div id='user-buttons'>
+        <div class='sunk'>
+          <i class="icon-cog"></i>&nbsp;&nbsp;Settings
+        </div>
+        <div class='sunk'>
+          <i class="icon-reply"></i>&nbsp;&nbsp;Log Out
+        </div>
+      </div>
+    </div>
+  </div>

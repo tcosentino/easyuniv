@@ -6,22 +6,19 @@ define([
   'jquery',
   'underscore',
   'backbone',
+  'views/nav',
   'views/pages/home',
   'views/pages/login',
   'views/pages/newUser',
   'views/pages/homeSetup',
   'views/pages/sports',
-  'views/header',
-  'views/footer',
-  'views/left',
-  'views/right',
   'views/pages/settings',
   'views/pages/news',
   'views/pages/notes',
   'models/user',
   'collections/apps'
-], function($, _, Backbone, HomePageView, LoginPageView, NewUserView,
-			HomeSetupView, SportsView, HeaderView, FooterView, LeftView, RightView, SettingsView, NewsView,
+], function($, _, Backbone, NavView, HomePageView, LoginPageView, NewUserView,
+			HomeSetupView, SportsView, SettingsView, NewsView,
       NotesView, User, Apps){
   var AppRouter = Backbone.Router.extend({
     routes: {
@@ -40,9 +37,9 @@ define([
       'settings': 'showSettings',
 
       // The routes below are for various apps that we may have
-      'notes/:from': 'showNotes',
-      'news/:from': 'showNews',
-      'sports/:from': 'showSports',
+      'notes': 'showNotes',
+      'news': 'showNews',
+      'sports': 'showSports',
 
 			// These are the views that a user will see when they create
 			// an account with easyUniv. It is sort of a 'getting started'
@@ -60,19 +57,19 @@ define([
       var settingsView = new SettingsView();
       settingsView.render();
     },
-    showNews: function(from) {
+    showNews: function() {
       var newsView = new NewsView();
-      newsView.from = from;
+      newsView.currentUser = this.currentUser;
       newsView.render();
     },
     showSports: function(from) {
       var sportsView = new SportsView();
-      sportsView.from = from;
+      sportsView.currentUser = this.currentUser;
       sportsView.render();
     },
     showNotes: function(from) {
       var notesView = new NotesView();
-      notesView.from = from;
+      notesView.currentUser = this.currentUser;
       notesView.render();
     },
     showLogin: function() {
@@ -90,55 +87,31 @@ define([
     defaultAction: function(actions) {
       console.log('No route:', actions); 
     },
-    initialize: function() {
-      if(typeof window.easyUserData.fbResponse.authResponse === 'undefined') {
-        this.loggedIn = false;
-      } else {
-        this.loggedIn = true;
-        this.currentUser = new User();
-        this.currentUser.fetchByFBID(window.easyUserData.fbResponse.authResponse.userID, function(exists) {
-          if(!exists) {
-            console.log('user does not exist');
-          } else {
-            console.log('user aquired');
-          }
-          drawConstants();
-        });
-      }
-      var drawConstants = _.after(1, function(){
-        // Create instances of each common view
-        var headerView = new HeaderView();
-        var footerView = new FooterView();
-        var leftView = new LeftView();
-        var rightView = new RightView();
-        
-        // Render each of the common views
-        headerView.render();
-        footerView.render();
-        leftView.render();
-        rightView.render();
-      });
-    },
-    next: function() {
-      if(!this.loggedIn) {
-
-      } else {
-        this.navigate('login', {trigger: true});
-      }
-    },
-    back: function() {
-      if(!this.loggedIn) {
-
-      } else {
-        this.navigate('login', {trigger: true});
-      }
+    initialize: function(options) {
+      this.currentUser = options.currentUser;
+      var navView = new NavView();
+      navView.currentUser = this.currentUser;
+      navView.render();
     }
   });
 
   var initialize = function(){
-    var router = new AppRouter();
-
-    Backbone.history.start();
+    var user;
+    if(typeof window.easyUserData.fbResponse.authResponse === 'undefined') {
+      user = null;
+    } else {
+      user = new User();
+      user.fetchByFBID(window.easyUserData.fbResponse.authResponse.userID, function(exists) {
+        if(!exists) {
+          console.log('user from fb doesn\'t exist in db');
+          user = null;
+        } else {
+          console.log('user aquired');
+        }
+        var router = new AppRouter({currentUser: user});
+        Backbone.history.start();
+      });
+    }
   };
   return {
     initialize: initialize

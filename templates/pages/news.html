@@ -1,14 +1,28 @@
-<div class='page-head'>CNN top stories</div>
-<div class='scroll fill-row' id='news-body'>
-	<div id='article-list'>
-		<% _.each(entries, function(entry) { %>
-			<div class='article-tile'>
-				<a href='<%= entry.get('link') %>'><b><%= entry.get('title') %></b></a><br />
-				<span class='pub-date'>
-					<%= $.timeago(new Date(entry.get('publishedDate'))) %>
-				</span>
-				<br /><%= entry.get('contentSnippet') %>
-			</div>
-		<% }); %>
-	</div>
+<div id='article-list'>
+	<% _.each(entries, function(entry) {  %>
+
+		<div class='article-frame'>
+		  <div class='article'>
+		    <h2><a href='<%= entry.get('link') %>'><%= entry.get('title') %></a></h2>
+
+			<% try { %>
+				<img src="<%= entry.get('mediaGroups')[0].contents[0].url %>" alt="">
+			<% } catch(err) { } %>
+
+		    <span class='time-ago'><%= $.timeago(new Date(entry.get('publishedDate'))) %></span>
+
+		    <p><%= entry.get('contentSnippet') %></p>
+
+		  </div>
+
+		  <div class='share-buttons'>
+		    <div class='fb-share'>
+		      <a href='http://www.facebook.com/sharer/sharer.php?u=<%= encodeURIComponent(entry.get('link')) %>'><img src="img/facebook.png"></a>
+		    </div>
+		    <div class='twitter-share'>
+		      <a href='https://twitter.com/share?url=<%= encodeURIComponent(entry.get('link')) %>&via=easyzag&related=easyzag&text=<%= encodeURIComponent(entry.get('title')) %>' target="_blank"><img src="img/twitter.png"></a>
+		    </div>
+		  </div>
+		</div>
+	<% }); %>
 </div>

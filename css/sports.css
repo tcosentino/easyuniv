@@ -1,0 +1,25 @@
+@media screen and (min-width: 1210px) {
+  #sports-list {
+    width: 950px;
+  }
+}
+
+@media screen and (min-width: 890px) and (max-width: 1210px) {
+  #sports-list {
+    width: 635px;
+  }
+}
+
+@media screen and (min-width: 0px) and (max-width: 890px) {
+  #sports-list {
+    width: 315px;
+  }
+}
+
+#sports-list {
+	margin: 0 auto 0 auto;
+}
+
+object {
+	margin:10px;
+}
