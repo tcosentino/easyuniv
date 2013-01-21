@@ -17,12 +17,16 @@
 
   <div id='spacer'>
     <div id='user-frame'>
-      <div id='prof-pic'>
-        <img src="https://graph.facebook.com/<%= user.get('fbID') %>/picture"/>
-      </div>
-      <div id='user-info'>
-        <div>Welcome,<br><%= user.get('firstName') + ' ' + user.get('lastName') %></div>
-      </div>
+      <% console.log(user); if(user != null) { %>
+        <div id='prof-pic'>
+          <img src="https://graph.facebook.com/<%= user.get('fbID') %>/picture"/>
+        </div>
+        <div id='user-info'>
+            <div>Welcome,<br><%= user.get('firstName') + ' ' + user.get('lastName') %></div>
+        </div>
+      <% } else { %>
+        <a href='#' id='login'><img src="../img/facebook-login.png"></a>
+      <% } %>
       <div id='user-buttons'>
         <div class='sunk'>
           <i class="icon-cog"></i>&nbsp;&nbsp;Settings

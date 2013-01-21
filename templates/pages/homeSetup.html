@@ -1,54 +1,45 @@
-<div class='fill-col col-two-third'>
-	<div id='mini-grid-container fill-row'>
-    <ul class='mini-grid'>
-      <% _.each(schoolTiles, function(tile) { %>
-        <li class="ui-state-default btn"><%= tile.get('text') %></li>
-      <% }); %>
-      <% _.each(genTiles, function(tile) { %>
-        <li class="ui-state-default btn"><%= tile.get('text') %></li>
-      <% }); %>
-    </ul>
-    <ul class='mini-grid sortable custom-tiles'>
-      <% _.each(botTen, function(tile) { %>
-        <li class="ui-state-default btn" data-id='<%= tile.get('id') %>'><%= tile.get('text') %></li>
-      <% }); %>
-    </ul>
-    <br class="clear" />
-  </div>
+<div id='tile-list'>
+    <% _.each(schoolTiles, function(tile) { %>
+      <div class="ui-state-default tile"><div class='tile-text'><%= tile.get('text') %></div><div class='tile-accent'></div></div>
+    <% }); %>
+    <% _.each(genTiles, function(tile) { %>
+      <div class="ui-state-default tile"><div class='tile-text'><%= tile.get('text') %></div><div class='tile-accent'></div></div>
+    <% }); %>
+    <% _.each(botTen, function(tile) { %>
+      <div class="ui-state-default tile" data-id='<%= tile.get('id') %>'><div class='tile-text'><%= tile.get('text') %></div><div class='tile-accent'></div></div>
+    <% }); %>
+</div>
   
-  <div class='fill-row double-unused'>
-  	<div class='col-third unused'>
-      unused school tiles (users)
-      <ul class='unused draggable school'>
-        <% _.each(restSchool, function(tile) { %>
-          <li class="unused-tile btn" data-id='<%= tile.get('id') %>' data-userCount='<%= tile.get('userCount') %>'>
-            <label>
-              <%= tile.get('text') %> 
-              <span class="badge badge-success">
-                <%= tile.get('userCount') %>
-              </span>
-            </label>
-          </li>
-        <% }); %>
-      </ul>
-    </div>
-    
-  	<div class='col-third unused'>
-      unused general tiles (users)
-      <ul class='unused draggable general'>
-        <% _.each(restGeneral, function(tile) { %>
-          <li class="unused-tile btn" data-id='<%= tile.get('id') %>' data-userCount='<%= tile.get('userCount') %>'>
-            <label>
-              <%= tile.get('text') %> 
-              <span class="badge badge-success">
-                <%= tile.get('userCount') %>
-              </span>
-            </label>
-          </li>
-        <% }); %>
-      </ul>
-    </div>
-  </div>
+<div class='col-third unused'>
+  unused school tiles (users)
+  <ul class='unused draggable school'>
+    <% _.each(restSchool, function(tile) { %>
+      <li class="unused-tile btn" data-id='<%= tile.get('id') %>' data-userCount='<%= tile.get('userCount') %>'>
+        <label>
+          <%= tile.get('text') %> 
+          <span class="badge badge-success">
+            <%= tile.get('userCount') %>
+          </span>
+        </label>
+      </li>
+    <% }); %>
+  </ul>
+</div>
+
+<div class='col-third unused'>
+  unused general tiles (users)
+  <ul class='unused draggable general'>
+    <% _.each(restGeneral, function(tile) { %>
+      <li class="unused-tile btn" data-id='<%= tile.get('id') %>' data-userCount='<%= tile.get('userCount') %>'>
+        <label>
+          <%= tile.get('text') %> 
+          <span class="badge badge-success">
+            <%= tile.get('userCount') %>
+          </span>
+        </label>
+      </li>
+    <% }); %>
+  </ul>
 </div>
 
 

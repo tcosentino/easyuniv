@@ -17,16 +17,6 @@ define([
 				exists.call(null, true);
 			}
 		}});
-	},
-	initialize: function() {
-		var that = this;
-		this.on("change:settingsJSON", function(model){
-			model.set({settings: JSON.stringify(model.get('settingsJSON'))}, {silent:true});
-		});
-
-		this.on("change:settings", function(model){
-			model.set({settingsJSON: JSON.parse(model.get('settings'))}, {silent:true});
-		});
 	}
   });
   return UserModel;

@@ -16,10 +16,11 @@ define([
   'views/pages/news',
   'views/pages/notes',
   'models/user',
-  'collections/apps'
+  'collections/apps',
+  'collections/homeTiles'
 ], function($, _, Backbone, NavView, HomePageView, LoginPageView, NewUserView,
 			HomeSetupView, SportsView, SettingsView, NewsView,
-      NotesView, User, Apps){
+      NotesView, User, Apps, HomeTiles){
   var AppRouter = Backbone.Router.extend({
     routes: {
       // Home is the default page when nothing is entered
@@ -51,7 +52,11 @@ define([
     },
     showHome: function() {
       var homePageView = new HomePageView();
-      homePageView.render();
+      homePageView.currentUser = this.currentUser;
+      homePageView.tiles = new HomeTiles();
+      homePageView.tiles.fetch({ success: function() {
+        homePageView.render();
+      }});
     },
     showSettings: function() {
       var settingsView = new SettingsView();
@@ -82,7 +87,11 @@ define([
     },
     showHomeSetup: function() {
       var homeSetupView = new HomeSetupView();
-      homeSetupView.render();
+      homeSetupView.currentUser = this.currentUser;
+      homeSetupView.tiles = new HomeTiles();
+      homeSetupView.tiles.fetch({ success: function() {
+        homeSetupView.render();
+      }});
     },
     defaultAction: function(actions) {
       console.log('No route:', actions); 
@@ -99,6 +108,8 @@ define([
     var user;
     if(typeof window.easyUserData.fbResponse.authResponse === 'undefined') {
       user = null;
+      var router = new AppRouter({currentUser: user});
+      Backbone.history.start();
     } else {
       user = new User();
       user.fetchByFBID(window.easyUserData.fbResponse.authResponse.userID, function(exists) {

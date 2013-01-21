@@ -1,8 +1,45 @@
-<ul class='tile-list'>
+<div id='tile-list'>
 	<% _.each(tiles, function(tile) { %>
-		<li class='ui-state-default btn tile' data-url='<%= tile.get('url') %>'><%= tile.get('text') %></li>
+		<div class='ui-state-default tile' data-url='<%= tile.get('url') %>'><div class='tile-text'><%= tile.get('text') %></div><div class='tile-accent'></div></div>
 	<% }); %>
-</ul>
-<div>
-	background of this will say GU deals pretty like
+</div>
+
+<div id='ad-divider'><img src="../img/deal-divider2.png"></div>
+
+<div id='deal-list'>
+	<div class='deal'>
+		<div class='deal-logo-table'>
+			<div class='deal-logo-cell'>
+				<img class='deal-logo' src="../img/ad/kalico.png">
+			</div>
+			<div class='deal-logo-cell'>
+				<p>15% off any meal with student ID</p>
+			</div>
+		</div>
+		<div class='deal-accent'></div>
+	</div>
+
+	<div class='deal'>
+		<div class='deal-logo-table'>
+			<div class='deal-logo-cell'>
+				<img class='deal-logo' src="../img/ad/hubblybubbly.jpg">
+			</div>
+			<div class='deal-logo-cell'>
+				<p>10% off of new hookah - free shisha and coals included</p>
+			</div>
+		</div>
+		<div class='deal-accent'> </div>
+	</div>
+
+	<div class='deal'>
+		<div class='deal-logo-table'>
+			<div class='deal-logo-cell'>
+				<img class='deal-logo' src="../img/ad/qdoba.png">
+			</div>
+			<div class='deal-logo-cell'>
+				<p>Easy Thursday - burrito and a drink for $5.99 with student ID every thursday</p>
+			</div>
+		</div>
+		<div class='deal-accent'></div>
+	</div>
 </div>

@@ -1,0 +1,158 @@
+@media screen and (min-width: 1210px) {
+  #sports-list {
+    width: 950px;
+    /*position:absolute; 
+    top:50%; */
+	margin: 0 auto 0 auto;
+  }
+}
+
+@media screen and (min-width: 890px) and (max-width: 1210px) {
+  #sports-list {
+	margin: 0 auto 0 auto;
+    width: 635px;
+  }
+}
+
+@media screen and (min-width: 0px) and (max-width: 890px) {
+  #sports-list {
+	margin: 0 auto 0 auto;
+    width: 315px;
+  }
+}
+
+#tile-list {
+	width: 920px;
+	margin: 0 auto 0 auto;
+}
+
+.tile {
+	width: 170px;
+	height: 70px;
+	margin: 5px;
+	border-radius: 4px;
+	float: left;
+	display: table;
+
+	position: relative;
+
+	background-image: url(../img/tile-bg.png);
+	background-color: #bcbcbc;
+
+	text-align: center;
+	color:#555;
+
+	border: solid #9b9b9b 1px;
+	-moz-box-shadow: 2px 2px 3px #3d3e42;
+	-webkit-box-shadow: 2px 2px 3px #3d3e42;
+	box-shadow: 2px 2px 3px #3d3e42;
+}
+
+.tile:hover { 
+	cursor: pointer;
+	-moz-box-shadow: 3px 3px 3px #3d3e42;
+	-webkit-box-shadow: 3px 3px 3px #3d3e42;
+	box-shadow: 3px 3px 3px #3d3e42;
+}
+
+.tile-accent {
+	position: absolute;
+	border-radius: 2px 2px 0 0;
+	height: 8px;
+	width: 150px;
+	bottom: -1px;
+	left: 10px;
+	background-color: #ff0000;
+
+	-moz-box-shadow: inset 2px 2px 3px #3d3e42;
+	-webkit-box-shadow: inset 2px 2px 3px #3d3e42;
+	box-shadow: inset 1px 1px 3px #3d3e42;
+}
+
+.tile-text {
+	display: table-cell;
+	vertical-align:middle;
+}
+
+#deal-list {
+	width: 920px;
+	margin: 0 auto 0 auto;
+}
+
+.deal {
+	width: 291px;
+	height: 100px;
+	margin: 5px;
+	border-radius: 4px;
+	float: left;
+	display: table;
+
+	position: relative;
+
+	background-image: url(../img/deal-bg.png);
+	background-color: #bcbcbc;
+
+	color:#555;
+
+	border: solid #9b9b9b 1px;
+	-moz-box-shadow: 2px 2px 3px #3d3e42;
+	-webkit-box-shadow: 2px 2px 3px #3d3e42;
+	box-shadow: 2px 2px 3px #3d3e42;
+}
+
+.deal:hover { 
+	cursor: pointer;
+	-moz-box-shadow: 3px 3px 3px #3d3e42;
+	-webkit-box-shadow: 3px 3px 3px #3d3e42;
+	box-shadow: 3px 3px 3px #3d3e42;
+}
+
+.deal-accent {
+	position: absolute;
+	border-radius: 2px 2px 0 0;
+	height: 8px;
+	width: 250px;
+	bottom: -1px;
+	left: 20px;
+	background-color: #00025d;
+
+	-moz-box-shadow: inset 2px 2px 3px #3d3e42;
+	-webkit-box-shadow: inset 2px 2px 3px #3d3e42;
+	box-shadow: inset 1px 1px 3px #3d3e42;
+}
+
+.deal p {
+	margin: 0;
+	padding: 0px 10px 0px 0px;
+	float: left;
+	width: 150px;
+}
+
+.deal-logo-table {
+	float: left;
+	display: table;
+	height: 92px;
+}
+
+.deal-logo-cell {
+	display: table-cell;
+	vertical-align:middle;
+	height: 92px;
+}
+
+.deal-logo {
+	width: 80px;
+	margin: 10px;
+	float: left;
+}
+
+#ad-divider {
+	margin: 0 auto 0 auto;
+	width: 885px;
+}
+
+#ad-divider img {
+	margin: 10px 0 10px 0;
+}
+
+

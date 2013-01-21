@@ -189,3 +189,7 @@
   .sunk {
     background-color:#272822;
   }
+
+  #login img {
+    margin: 10px 0px 10px 18px;
+  }

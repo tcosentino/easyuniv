@@ -1,23 +1,24 @@
 @media screen and (min-width: 1210px) {
   #sports-list {
     width: 950px;
+    /*position:absolute; 
+    top:50%; */
+	margin: 0 auto 0 auto;
   }
 }
 
 @media screen and (min-width: 890px) and (max-width: 1210px) {
   #sports-list {
+	margin: 0 auto 0 auto;
     width: 635px;
   }
 }
 
 @media screen and (min-width: 0px) and (max-width: 890px) {
   #sports-list {
+	margin: 0 auto 0 auto;
     width: 315px;
   }
-}
-
-#sports-list {
-	margin: 0 auto 0 auto;
 }
 
 object {

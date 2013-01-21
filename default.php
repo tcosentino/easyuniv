@@ -22,6 +22,7 @@
     <link rel="stylesheet" type="text/css" href="css/news.css">
     <link rel="stylesheet" type="text/css" href="css/notes.css">
     <link rel="stylesheet" type="text/css" href="css/sports.css">
+    <link rel="stylesheet" type="text/css" href="css/home.css">
   </head>
   <body>
     <!-- Begin facebook code -->

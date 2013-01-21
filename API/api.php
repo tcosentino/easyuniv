@@ -52,7 +52,7 @@
   function addUser() {
     $request = \Slim\Slim::getInstance()->request();
     $user = json_decode($request->getBody());
-    $sql = "INSERT INTO user (fbID, firstName, lastName, gender, email, schoolID) VALUES (:fbID, :firstName, :lastName, :gender, :email, :schoolID)";
+    $sql = "INSERT INTO user (fbID, firstName, lastName, gender, email, schoolID, settings) VALUES (:fbID, :firstName, :lastName, :gender, :email, :schoolID, :settings)";
     try {
       $db = getConnection("easysites");
       $stmt = $db->prepare($sql);
@@ -62,6 +62,7 @@
       $stmt->bindParam("gender", $user->gender);
       $stmt->bindParam("email", $user->email);
       $stmt->bindParam("schoolID", $user->schoolID);
+      $stmt->bindParam("settings", $user->settings);
       $stmt->execute();
       $db = null;
       echo json_encode($user);
