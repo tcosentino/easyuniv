@@ -22,7 +22,7 @@
 }
 
 #tile-list {
-	width: 920px;
+	width: 910px;
 	margin: 0 auto 0 auto;
 }
 
@@ -63,6 +63,20 @@
 	bottom: -1px;
 	left: 10px;
 	background-color: #ff0000;
+
+	-moz-box-shadow: inset 2px 2px 3px #3d3e42;
+	-webkit-box-shadow: inset 2px 2px 3px #3d3e42;
+	box-shadow: inset 1px 1px 3px #3d3e42;
+}
+
+.tile-accent-alt {
+	position: absolute;
+	border-radius: 2px 2px 0 0;
+	height: 8px;
+	width: 150px;
+	bottom: -1px;
+	left: 10px;
+	background-color: #00025d;
 
 	-moz-box-shadow: inset 2px 2px 3px #3d3e42;
 	-webkit-box-shadow: inset 2px 2px 3px #3d3e42;
@@ -154,5 +168,52 @@
 #ad-divider img {
 	margin: 10px 0 10px 0;
 }
+
+#edit-tile {
+	width: 900px;
+	margin: 30px auto 0 auto;
+	clear: both;
+}
+
+#edit-tile .form-horizontal {
+	width: 450px;
+	float: left;
+}
+
+#single-tile .tile {
+	margin: 10px auto 10px auto;
+	float: none;
+}
+
+#single-tile {
+	width: 910px;
+	margin: 350px auto 0 auto;
+	position: relative;
+}
+
+.sortable {
+	float: left;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

@@ -38,7 +38,95 @@ define([
 					var compiledTemplate = _.template(HomeSetupTemplate, data);
 					// Append our compiled template to this Views "el"
 					that.$el.html( compiledTemplate );
-					that.listeners();
+
+					$(".sortable").sortable({
+						tolerance: "pointer",
+						containment: "parent"
+					});
+
+					$("#custom-tile").parent().draggable({
+						revert: "invalid",
+						containment: $('#window'),
+						helper: 'clone',
+						cursorAt: {left: -290}
+					});
+
+					$('select').change(function(){
+						console.log($(this).children('option:selected').data('id'));
+						$('#display-text').val($(this).children('option:selected').data('text'));
+						$('#url-text').val($(this).children('option:selected').data('url'));
+						$('#custom-tile').html($('#display-text').val());
+						$('#custom-tile').parent().data('url', $('#url-text').val());
+						$('#custom-tile').parent().data('id', $(this).children('option:selected').data('id'));
+					});
+
+					$('.sortable div').droppable({
+						accept: $("#custom-tile").parent(),
+						tolerance: "pointer",
+						drop: function(event, ui) {
+							var $dragged = ui.draggable;
+							var $dropped = $(this);
+
+							$dropped.children('div').first().html($dragged.children('div').first().html());
+							$dropped.data('id', $dragged.data('id'));
+							$dropped.data('url', $dragged.data('url'));
+
+							console.log($dragged.data('url'));
+						}
+					});
+
+					$('#save-button').click(function(){
+						var tilesToSave = 0;
+						var tiles = [];
+						_.each($('.sortable .tile'), function(t){
+							if($(t).data('id') == -1) {
+								tilesToSave += 1;
+								tiles.push(new HomeTile({ 
+									text: $(t).children('div').first().html(),
+									url: $(t).data('url')
+								}));
+							} else {
+								tiles.push(new HomeTile({ 
+									id: $(t).data('id'),
+									text: $(t).children('div').first().html(),
+									url: $(t).data('url')
+								}));
+							}
+						});
+
+						var afterSave = _.after(tilesToSave, function(){
+							console.log(tiles);
+							var settings = { 
+								homeTiles: $.map(tiles, function(t){ return Number(t.get('id')); })
+							};
+							that.currentUser.set({settings: JSON.stringify(settings)});
+							that.currentUser.save(null, {
+								success: function(user) { 
+									//window.location = 'http://local.easyuniv.com/default.php#/home';
+								}
+							});
+						});
+
+						_.each(tiles, function(t){
+							if(!(t.has('id'))) {
+								t.save(null, { success: function(){
+									afterSave();
+								}});
+							}
+						});
+
+						return false;
+					});
+			
+					$('#display-text').live('keyup', function(e){
+						$('#custom-tile').html($(this).val());
+						$('#custom-tile').parent().data('id', '-1');
+					});
+					
+					$('#url-text').live('keyup', function(e){
+						$('#custom-tile').parent().data('url', $(this).val());
+						$('#custom-tile').parent().data('id', '-1');
+					});
 				});
 
 				userTiles = tileIDs.map(function(id) {
